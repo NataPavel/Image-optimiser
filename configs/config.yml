@@ -1,0 +1,12 @@
+port: "8080"
+
+db:
+  login: "root"
+  password: "mysql"
+  host: "localhost"
+  port: "3306"
+  dbName: "image_optimiser_db"
+rabbitmq:
+  login: "guest"
+  host: "localhost"
+  port: "5672"

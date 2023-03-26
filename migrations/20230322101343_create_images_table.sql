@@ -1,0 +1,11 @@
+-- +goose Up
+CREATE TABLE images(
+    id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    image100 VARCHAR(255) NOT NULL,
+    image75 VARCHAR(255) NOT NULL,
+    image50 VARCHAR(255) NOT NULL,
+    image25 VARCHAR(255) NOT NULL
+);
+
+-- +goose Down
+DROP TABLE images;
