@@ -1,4 +1,4 @@
-# Image-optimiser
+# Image-optimizer
 > ### Image optimizer is an application that resizes to 100%, 75%, 50%, 25% of the original image
 > ### Several facts that you should know about app:
 > - #### To run the application, write in the terminal: `go run cmd/main.go`
