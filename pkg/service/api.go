@@ -15,7 +15,7 @@ func NewImageOperationService(repos repository.ImageOperation) *ImageOperationSe
 	return &ImageOperationService{repos: repos}
 }
 
-func (s *ImageOperationService) CreateImage(image entities.Image, filename string) error {
+func (s *ImageOperationService) CreateImage(image entities.Image, filename string) (int64, error) {
 	return s.repos.CreateImage(image, filename)
 }
 

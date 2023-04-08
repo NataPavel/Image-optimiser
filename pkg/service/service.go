@@ -8,7 +8,7 @@ import (
 )
 
 type ImageOperation interface {
-	CreateImage(image entities.Image, filename string) error
+	CreateImage(image entities.Image, filename string) (int64, error)
 	GetImageById(image entities.Image, id int, c *gin.Context) (string, error)
 }
 

@@ -23,8 +23,7 @@ const localStorageDir = "./localStorage/"
 func NewImageOp(db *sql.DB) *ImageOp {
 	return &ImageOp{db: db}
 }
-func (r *ImageOp) CreateImage(image entities.Image, filename string) error {
-	var err error
+func (r *ImageOp) CreateImage(image entities.Image, filename string) (int64, error) {
 	sizes := []int{100, 75, 50, 25}
 
 	var wg sync.WaitGroup
@@ -46,12 +45,26 @@ func (r *ImageOp) CreateImage(image entities.Image, filename string) error {
 	}
 	wg.Wait()
 
-	_, err = r.db.Exec("INSERT INTO images (image100, image75, image50, image25) VALUES (?, ?, ?, ?)",
-		image.Image100, image.Image75, image.Image50, image.Image25)
-	if err != nil {
-		return err
+	/*var id int
+	//_, err := r.db.Exec("INSERT INTO images (image100, image75, image50, image25) VALUES (?, ?, ?, ?) RETURNING id",
+	//image.Image100, image.Image75, image.Image50, image.Image25)
+	query := fmt.Sprintf("INSERT INTO images (image100, image75, image50, image25) VALUES ($1, $2, $3, $4)")
+	row := r.db.QueryRow(query, image.Image100, image.Image75, image.Image50, image.Image25)
+	if err := row.Scan(&id); err != nil {
+		return 0, err
 	}
-	return err
+	return id, nil*/
+	var id int64
+	query := "INSERT INTO images (image100, image75, image50, image25) VALUES (?, ?, ?, ?)"
+	result, err := r.db.Exec(query, image.Image100, image.Image75, image.Image50, image.Image25)
+	if err != nil {
+		return 0, err
+	}
+	id, err = result.LastInsertId()
+	if err != nil {
+		return 0, err
+	}
+	return id, nil
 }
 
 func (r *ImageOp) GetImageById(image entities.Image, id int, c *gin.Context) (string, error) {
@@ -76,7 +89,7 @@ func (r *ImageOp) GetImageById(image entities.Image, id int, c *gin.Context) (st
 		filename = image.Image100
 	}
 
-	return filename, err
+	return filename, nil
 }
 
 func resizeImage(sizePercentage int, filename string, wg *sync.WaitGroup) {

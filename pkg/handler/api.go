@@ -40,12 +40,14 @@ func (h *Handler) uploadImage(c *gin.Context) {
 	}(img)
 
 	var image entities.Image
-	err = h.services.ImageOperation.CreateImage(image, filename)
+	id, err := h.services.ImageOperation.CreateImage(image, filename)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
-	c.JSON(http.StatusOK, gin.H{"message": "Image uploaded successfully"})
+
+	mess := fmt.Sprintf("Image uploaded successfully: id - %d", id)
+	c.JSON(http.StatusOK, gin.H{"message": mess})
 }
 
 func (h *Handler) getImageById(c *gin.Context) {
