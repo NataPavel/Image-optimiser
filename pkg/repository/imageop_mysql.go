@@ -45,21 +45,14 @@ func (r *ImageOp) CreateImage(image entities.Image, filename string) (int64, err
 	}
 	wg.Wait()
 
-	/*var id int
-	//_, err := r.db.Exec("INSERT INTO images (image100, image75, image50, image25) VALUES (?, ?, ?, ?) RETURNING id",
-	//image.Image100, image.Image75, image.Image50, image.Image25)
-	query := fmt.Sprintf("INSERT INTO images (image100, image75, image50, image25) VALUES ($1, $2, $3, $4)")
-	row := r.db.QueryRow(query, image.Image100, image.Image75, image.Image50, image.Image25)
-	if err := row.Scan(&id); err != nil {
-		return 0, err
-	}
-	return id, nil*/
 	var id int64
+
 	query := "INSERT INTO images (image100, image75, image50, image25) VALUES (?, ?, ?, ?)"
 	result, err := r.db.Exec(query, image.Image100, image.Image75, image.Image50, image.Image25)
 	if err != nil {
 		return 0, err
 	}
+	
 	id, err = result.LastInsertId()
 	if err != nil {
 		return 0, err
