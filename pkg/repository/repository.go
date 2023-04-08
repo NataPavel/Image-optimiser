@@ -2,8 +2,9 @@ package repository
 
 import (
 	"database/sql"
-	"github.com/gin-gonic/gin"
 	"imageOptimisation/entities"
+
+	"github.com/gin-gonic/gin"
 )
 
 type ImageOperation interface {

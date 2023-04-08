@@ -1,8 +1,9 @@
 package handler
 
 import (
-	"github.com/gin-gonic/gin"
 	"imageOptimisation/pkg/service"
+
+	"github.com/gin-gonic/gin"
 )
 
 type Handler struct {

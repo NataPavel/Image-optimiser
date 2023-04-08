@@ -1,15 +1,17 @@
 package main
 
 import (
-	"github.com/joho/godotenv"
-	_ "github.com/lib/pq"
-	"github.com/spf13/viper"
+	"log"
+	"os"
+
 	imgOpt "imageOptimisation"
 	"imageOptimisation/pkg/handler"
 	"imageOptimisation/pkg/repository"
 	"imageOptimisation/pkg/service"
-	"log"
-	"os"
+
+	"github.com/joho/godotenv"
+	_ "github.com/lib/pq"
+	"github.com/spf13/viper"
 )
 
 func main() {
@@ -32,6 +34,7 @@ func main() {
 		log.Fatalf("Error initialization db: %s", err.Error())
 	}
 	defer db.Close()
+
 	mq, err := repository.NewRabbitMQ(repository.Config{
 		Login:    viper.GetString("rabbitmq.login"),
 		Password: os.Getenv("MQ_PASS"),

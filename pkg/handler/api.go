@@ -2,13 +2,15 @@ package handler
 
 import (
 	"fmt"
-	"github.com/gin-gonic/gin"
-	"github.com/google/uuid"
-	"imageOptimisation/entities"
 	"net/http"
 	"os"
 	"path/filepath"
 	"strconv"
+
+	"imageOptimisation/entities"
+
+	"github.com/gin-gonic/gin"
+	"github.com/google/uuid"
 )
 
 func (h *Handler) uploadImage(c *gin.Context) {
@@ -36,6 +38,7 @@ func (h *Handler) uploadImage(c *gin.Context) {
 
 		}
 	}(img)
+
 	var image entities.Image
 	err = h.services.ImageOperation.CreateImage(image, filename)
 	if err != nil {

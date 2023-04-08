@@ -1,6 +1,5 @@
 package entities
 
-// image100, image75, etc. - name of images in different sizes
 type Image struct {
 	Id       int    `json:"id"`
 	Image100 string `json:"image100"`

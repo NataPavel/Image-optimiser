@@ -1,9 +1,10 @@
 package service
 
 import (
-	"github.com/gin-gonic/gin"
 	"imageOptimisation/entities"
 	"imageOptimisation/pkg/repository"
+
+	"github.com/gin-gonic/gin"
 )
 
 type ImageOperationService struct {
